@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Form Page</title>
+    </head>
+    <body>
+        <div role="main">
+            <h1>Form Page</h1>
+            <p>Some introductory text would go here</p>
+            <form>
+                <p><label for="fname" id="fname-label">First Name</label><input type="text" name="fname" id="fname" aria-labelledby="fname-label" title="First Name" /></p>
+                <p><label for="lname" id="lname-label">Last Name</label><input type="text" name="lname" id="lname" aria-labelledby="lname-label" title="Last Name" /></p>
+                <p><label for="email" id="email-label">Email</label><input type="email" name="email" id="email" aria-labelledby="email-label" title="Email" /></p>
+                <p><label for="date" id="date-label">Date of Birth</label><input type="date" name="date" id="date" aria-labelledby="date-label" title="Date of Birth" /></p>
+                <p><label for="gender" id="gender-label">Select single</label><select name="gender" id="gender" aria-labelledby="gender-label"><option value="m" selected>Male</option><option value="f">Female</option><option value="o">Other</option></select></p>
+                <input type="hidden" name="sid" value="545844884869" />
+                <p><label for="password" id="password-label">Password</label><input type="password" name="password" id="password" aria-labelledby="password-label" title="Password" /></p>
+                <p><label for="confirm" id="confirm-label">Confirm Password</label><input type="password" name="confirm" id="confirm" aria-labelledby="confirm-label" title="Confirm" /></p>
+                <p><button type="submit">Submit</button></p>
+                <hr />
+            </form>
+        </div>
+    </body>
+</html>

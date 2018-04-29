@@ -1,0 +1,11 @@
+{% set columns = data.columns.values.tolist() %}
+\begin{table}
+    \begin{tabular}{ *{ {{ columns | length }} }{c} }
+    \textbf{ {{ columns[0] | tex_escape }}}{% for column in columns[1:] %} & \textbf{ {{ column | tex_escape }}}{% endfor %}\\
+    \hline
+    {% for index, row in data.iterrows() %}{{ row[columns[0]] | round_if_float(2) | tex_escape }}{% for column in columns[1:] %} & {{ row[column] | round_if_float(2) | tex_escape }}{% endfor %}\\
+    {% endfor %}
+    \end{tabular}
+    \caption{ {{ description | tex_escape }}}
+    {% if label %}\label{tab:{{label}}}{% endif %}
+\end{table}

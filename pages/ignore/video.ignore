@@ -1,0 +1,6 @@
+##chrome-adt
+Controls and media elements should have labels
+##axe
+Ensures <video> elements have audio descriptions
+##axe-speech
+Ensures <video> elements have audio descriptions

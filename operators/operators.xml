@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8"?><MutatorSet xmlns="mutators" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmi:version="2.0"><mutators xmlns:xsi="xsi" xsi:type="HTMLMutator" name="ELATR" shortDesc="Remove Alt tag from elements" longDesc="Removes the \texttt{alt} attribute from \texttt{img}, \texttt{applet}, \texttt{area} and \texttt{input} (of type image) tags. The attribute is important as screen reader software uses it to either describe the content that is otherwise not visible to the user, or ignore it if the alt text is blank due to the decorative nature of the element. Removing it will cause screen reader software to announce the nondescript presence of the element, breaking the reading flow for the user." guidelines="//@guidelines.1 //@guidelines.2"><elementSelector><![CDATA[img, applet, area, input[type="image"]]]></elementSelector><mutation><![CDATA[                                                                                                                        
+           
+               element.removeAttribute("alt");
+           
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ]]></mutation><examples xsi:type="Example"><before><![CDATA[                                                                                                                        
+                
+                    <img src="file.png" alt="description" />
+                
+            
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ]]></before><after><![CDATA[                                                                                                                        
+                
+                    <img src="file.png" />
+                
+            
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ]]></after></examples></mutators><mutators xmlns:xsi="xsi" xsi:type="HTMLMutator" name="HTROT" shortDesc="Rotate heading tag values" longDesc="Replaces heading level with the level greater than itself (or \texttt{h6} if originally \texttt{h1}). Incorrect heading order can confuse screen reading and other accessibility software which use headings to create page navigation. Whilst some out of order headings create in-navigable pages, others do not, so careful analysis is needed of mutants generated."><elementSelector><![CDATA[h1,h2,h3,h4,h5,h6]]></elementSelector><mutation><![CDATA[                                                                                                                        
+           
+               var headingLevel = parseInt(element.tagName.charAt(1)) - 1;
+               if (headingLevel === 0) headingLevel = 6;
+               
+               var jsdom = require("jsdom"); var { JSDOM } = jsdom;
+               var newElem = new JSDOM("<!DOCTYPE html>").window.document.createElement("h" + headingLevel);
+               for (var i = 0; i < element.attributes.length - 1; i++) {
+                    newElem.setAttribute(element.attributes[i].name, element.attributes[i].value);
+                }
+                newElem.innerHTML = element.innerHTML;
+                element = newElem;
+           
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ]]></mutation><examples xsi:type="Example"><before><![CDATA[                                                                                                                        
+                
+                    <h1>Heading</h1>
+                
+            
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ]]></before><after><![CDATA[                                                                                                                        
+                
+                    <h6>Heading</h6>
+                
+            
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ]]></after></examples></mutators><mutators xmlns:xsi="xsi" xsi:type="HTMLMutator" name="STLRM" shortDesc="Remove Skip to Links" longDesc="Removes the first \texttt{a} element on the page if it links to an element within the same page. Skip links are used to allow accessibility software to proceed past potentially length navigation options in order to access the main content of the page. There is no set standard for the what a skip link should look like or how it should be formed, but it is accepted practice that it should be the first link on the page. In cases where skip links are not provided there should be no navigation or boilerplate content at the start of the page."><elementSelector><![CDATA[body a:first-of-type[href^="#"]]]></elementSelector><mutation><![CDATA[                                                                                                                        
+           
+               element.removeAttribute("href");
+           
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ]]></mutation></mutators><mutators xmlns:xsi="xsi" xsi:type="HTMLMutator" name="THRPL" shortDesc="Replace table header elements with regular cells" longDesc="Replaces all \texttt{th} (table header) elements within a \texttt{table} with standard \texttt{td} (table cell) fields, removing the semantic meaning of it being a header. Tables can also gain meaning though the use of aria labelling or the use of the \texttt{thead} element to denote a collection of table rows which comprise the header." guidelines="//@guidelines.0"><elementSelector><![CDATA[tr:has(th)]]></elementSelector><mutation><![CDATA[                                                                                                                        
+            
+                var jsdom = require("jsdom"); var { JSDOM } = jsdom;
+                var headers = element.getElementsByTagName("th");
+                for (var i = 0; i < headers.length; i++) {
+                    var newElem = new JSDOM("<!DOCTYPE html>").window.document.createElement("td");
+                    newElem.innerHTML = headers[i].innerHTML;
+                    element.replaceChild(newElem, headers[i]);
+                }
+            
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ]]></mutation></mutators><mutators xmlns:xsi="xsi" xsi:type="HTMLMutator" name="TCPRM" shortDesc="Remove caption from tables" longDesc="Removes \texttt{caption} elements from any \texttt{table} element. The caption is used to provide a visible description of the content, along with any figure references." guidelines="//@guidelines.0"><elementSelector><![CDATA[table > caption]]></elementSelector><mutation><![CDATA[                                                                                                                         
+            element = undefined;
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ]]></mutation></mutators><mutators xmlns:xsi="xsi" xsi:type="HTMLMutator" name="TCPSM" shortDesc="Set table caption and summary to be the same" longDesc="Sets the \texttt{caption} element of any \texttt{table} to have the same content as the tables \texttt{summary} attribute. This duplicates data being displayed to the user causing an accessibility issue as the information will be presented twice to the user, who is potentially unable to skip the repeated occurrence." guidelines="//@guidelines.0"><elementSelector><![CDATA[table[summary]:has(caption)]]></elementSelector><mutation><![CDATA[                                                                                                                        
+            
+                var caption;
+                if (element.getElementsByTagName("caption")) {
+                    caption = element.getElementsByTagName("caption")[0];
+                } else {
+                    var jsdom = require("jsdom"); var { JSDOM } = jsdom;
+                    caption = new JSDOM("<!DOCTYPE html>").window.document.createElement("caption");
+                    element.appendChild(caption);
+                }
+                caption.innerHTML = element.getAttribute("summary");
+            
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ]]></mutation></mutators><mutators xmlns:xsi="xsi" xsi:type="HTMLMutator" name="SCPWG" shortDesc="Set the scope to invalid value" longDesc="Replaces the \texttt{scope} attribute of a \texttt{th} element with a value outside of the valid enumeration. This creates technically invalid HTML but this may not be spotted by a developer unless HTML validation forms a routine part of their workflow, since it has no impact on visual display or navigation. A single character spelling mistake, as this operator simulates by replacing the letter o (which occurs in all valid values) with the letter p, would be sufficient to create an accessibility issue." guidelines="//@guidelines.0"><elementSelector><![CDATA[th[scope]]]></elementSelector><mutation><![CDATA[                                                                                                                        
+            
+                element.setAttribute("scope", element.getAttribute("scope").replace("o", "p"));
+            
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ]]></mutation></mutators><mutators xmlns:xsi="xsi" xsi:type="HTMLMutator" name="SCPRM" shortDesc="Remove scope from table header" longDesc="Removes the \texttt{scope} attribute from a single \texttt{th} element. Where other table headings have specified a scope the lack of the attribute from a single header would create ambiguity as to what it is the heading for. Removing the attribute from a single column table may still pose a concern since, whilst uncommon, \texttt{th} elements can be used in table rows to provide either a row heading or an inline subdivision of the table." guidelines="//@guidelines.0"><elementSelector><![CDATA[th[scope]]]></elementSelector><mutation><![CDATA[                                                                                                                        
+            
+                element.removeAttribute("scope");
+            
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ]]></mutation></mutators><mutators xmlns:xsi="xsi" xsi:type="HTMLMutator" name="LBLRM" shortDesc="Remove label from inputs" longDesc="Removes \texttt{label} elements which are used to identify a form field. The label is required to ensure the purpose of a form field is visible to the user. Whilst other methods of displaying the field name, such as using \texttt{placeholder} text may be used, the label is the standardised method that pages are expected to implement." guidelines="//@guidelines.0 //@guidelines.1"><elementSelector><![CDATA[label[for]]]></elementSelector><mutation><![CDATA[                                                                                                                        
+            element = undefined;
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ]]></mutation></mutators><mutators xmlns:xsi="xsi" xsi:type="HTMLMutator" name="LBLRF" shortDesc="Remove for attribute from label" longDesc="Removes the \texttt{for} attribute from a \texttt{label}, which is used to identify the form field it describes. Even in cases where the form field is contained by the label, it is compulsory to provide the \texttt{for} attribute even though most accessibility software and web browsers are able to make a &quot;best guess&quot; as to what field is being described without it." guidelines="//@guidelines.0 //@guidelines.1"><elementSelector><![CDATA[label[for]]]></elementSelector><mutation><![CDATA[                                                                                                                        
+            
+                element.removeAttribute("for");
+            
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ]]></mutation></mutators><mutators xmlns:xsi="xsi" xsi:type="HTMLMutator" name="ITLRM" shortDesc="Remove title from input fields" longDesc="Removes \texttt{title} attribute from any \texttt{input} fields. The title attribute is used to provide information on what data is expected within a form field and may be read by screen reading software or displayed on screen so should provide a meaningful description. In some circumstances, such as when a well-formed label is provided, the title is not needed." guidelines="//@guidelines.0 //@guidelines.1"><elementSelector><![CDATA[input[title]:not([aria-labelledby])]]></elementSelector><mutation><![CDATA[                                                                                                                        
+            
+                element.removeAttribute("title");
+            
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ]]></mutation></mutators><mutators xmlns:xsi="xsi" xsi:type="HTMLMutator" name="AIMTR" shortDesc="Remove text from links with images" longDesc="Removes any text from links where there is a decorative image (\texttt{img} with an empty string for \texttt{alt} attribute). Links must contain some textual representation of their destination. This may be provided by either alternative text for an image or text itself. Removing all content other than decorative images from the link will prevent any meaningful description being given to the user, especially if there is either no URL or it contains a &quot;cryptic&quot; path." guidelines="//@guidelines.1 //@guidelines.2"><elementSelector><![CDATA[a[href]:has(img[alt=""])]]></elementSelector><mutation><![CDATA[                                                                                                                        
+            
+                var nodes = element.childNodes;
+                for (var i = 0; i < nodes.length; i++) {
+                    if (nodes[i].nodeType == Node.TEXT_NODE || (nodes[i].nodeType == Node.ELEMENT_NODE && nodes[i].tagName.toUpperCase() != "IMG")) {
+                        element.removeChild(nodes[i]);
+                    }
+                }
+            
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ]]></mutation></mutators><mutators xmlns:xsi="xsi" xsi:type="HTMLMutator" name="OBBDR" shortDesc="Remove body from object element" longDesc="Removes the body content from an \texttt{object} element. In cases where the object cannot be rendered or displayed, maybe due to a missing or unsupported browser plugin, the body content of it is instead displayed which may provide either a HTML alternative or instructions on how to access the content." guidelines="//@guidelines.1"><elementSelector><![CDATA[object]]></elementSelector><mutation><![CDATA[                                                                                                                        
+            
+                var nodes = element.childNodes;
+                for (var i = 0; i < nodes.length; i++) {
+                    element.removeChild(nodes[i]);
+                }
+            
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ]]></mutation></mutators><mutators xmlns:xsi="xsi" xsi:type="HTMLMutator" name="LDCUR" shortDesc="Change longdesc to not be a URI" longDesc="Modifies the \texttt{longdesc} attribute to not be a URI. This attribute would normally be used to link to either another element on the page or an external page with a more detailed description of the element. If this information is not correct then a detailed overview of visual content may not be accessible to the user." guidelines="//@guidelines.1"><elementSelector><![CDATA[*[longdesc]]]></elementSelector><mutation><![CDATA[                                                                                                                        
+            element.setAttribute("longdesc", "+441234567890");
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ]]></mutation></mutators><mutators xmlns:xsi="xsi" xsi:type="HTMLMutator" name="RTLND" shortDesc="Remove text direction from RTL languages" longDesc="Removes the \texttt{dir} attribute from any fields, losing information about the direction of text. In cases where a page is written in a left-to-right (LTR) language with a small piece of right-to-left (RTL) text (or vice versa), removing the \texttt{dir} attribute prevents this information from being detected and so may result in text being read and interpreted backwards by accessibility software." guidelines="//@guidelines.3"><elementSelector><![CDATA[*[dir]]]></elementSelector><mutation><![CDATA[                                                                                                                        
+            element.removeAttribute("dir");
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ]]></mutation></mutators><mutators xmlns:xsi="xsi" xsi:type="HTMLMutator" name="BLINK" shortDesc="Make text element blink with no method of disabling" longDesc="Applies the \texttt{blink} text decoration to text elements, with no method of disabling the animation. Blinking text prevents it from being read, so the use of the animation on textual content or without a means of turning the animation off." guidelines="//@guidelines.4"><elementSelector><![CDATA[p, h1, h2, h3, h4, h5, h6, span, label, a]]></elementSelector><mutation><![CDATA[                                                                                        element.style.textDecoration = "blink";
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ]]></mutation></mutators><mutators xmlns:xsi="xsi" xsi:type="HTMLMutator" name="DUPID" shortDesc="Set multiple items to have the same ID" longDesc="Wraps an element with a \texttt{id} attribute in a \texttt{div} element with the same ID. The use of the same ID for multiple elements prevents navigation around the page from working correctly since elements cannot be uniquely targeted." guidelines="//@guidelines.5"><elementSelector><![CDATA[[id]:parent]]></elementSelector><mutation><![CDATA[var jsdom = require("jsdom"); var { JSDOM } = jsdom;
+var div = new JSDOM("<!DOCTYPE html>").window.document.createElement("div");
+div.setAttribute("id", element.getAttribute("id"));
+div.appendChild(element.cloneNode(true));
+element = div;]]></mutation></mutators><mutators xmlns:xsi="xsi" xsi:type="HTMLMutator" name="TJUST" shortDesc="Justify text" longDesc="Applies a justified text alignment to text elements. This fault makes text harder to read visually as spacing on screen becomes non-uniform. This fault will only present and be a concern where the text the alignment is applied to runs over multiple lines, otherwise the text will appear to be left justified as would be default." guidelines="//@guidelines.6"><elementSelector><![CDATA[p]]></elementSelector><mutation><![CDATA[                                                                                        element.style.textAlign = "justify";
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ]]></mutation></mutators><mutators xmlns:xsi="xsi" xsi:type="HTMLMutator" name="TTLEM" shortDesc="Give empty title for page" longDesc="Sets the \texttt{title} element of the page to be empty. A page title is required to provide a basic identifier for the page. It is displayed or narrated by most web software." guidelines="//@guidelines.7"><elementSelector><![CDATA[title]]></elementSelector><mutation><![CDATA[                                                                                element.innerHTML = "";
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ]]></mutation></mutators><mutators xmlns:xsi="xsi" xsi:type="HTMLMutator" name="FMSUB" shortDesc="Change submit buttons to regular buttons" longDesc="Replaces a button of type \texttt{submit} with one of type \texttt{button}. This would cause a button with a form which cannot be submitted using on-screen buttons in the case of there only being a single submit button within the form. In cases where there are other submit buttons within the form this will not create an accessibility issue. A user will also be able to submit the form using their keyboard in a conventional browser, but may render the form unusable in other browsers." guidelines="//@guidelines.8"><elementSelector><![CDATA[input[type="submit"], button[type="submit"]]]></elementSelector><mutation><![CDATA[                                                                                element.setAttribute("type", "button");
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ]]></mutation></mutators><mutators xmlns:xsi="xsi" xsi:type="HTMLMutator" name="LANRM" shortDesc="Remove the page lang attribute" longDesc="Removes the \texttt{lang} attribute from \texttt{html} elements. If no language is specified for the page then it may be interpreted incorrectly, with the browser potentially choosing the wrong reading order or narrate with incorrect emphasis due to differences in language rules." guidelines="//@guidelines.10"><elementSelector><![CDATA[html[lang]]]></elementSelector><mutation><![CDATA[                                                                                element.removeAttribute("lang");
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ]]></mutation></mutators><mutators xmlns:xsi="xsi" xsi:type="HTMLMutator" name="IFTRM" shortDesc="Remove the title from IFrames" longDesc="Removes the \texttt{title} attribute from \texttt{iframe} elements. The title is used to identify what content is expected to be within an iframe, providing a brief summary before navigating into the framed page. Without the title navigation information may be based solely on the URL or navigate into the frame without providing the user with any additional information." guidelines="//@guidelines.11 //@guidelines.12"><elementSelector><![CDATA[iframe[title]]]></elementSelector><mutation><![CDATA[                                                                                element.removeAttribute("title");
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ]]></mutation></mutators><mutators xmlns:xsi="xsi" xsi:type="HTMLMutator" name="MDTDR" shortDesc="Remove descriptive tracks from media" longDesc="Removes \texttt{track} elements that provide either captions or descriptions for media elements. This prevents deaf and/or blind users from being able to access alternative versions of any audio/video content." guidelines="//@guidelines.13 //@guidelines.14 //@guidelines.15 //@guidelines.16 //@guidelines.17"><elementSelector><![CDATA[video > track[kind="captions"], audio > track[kind="descriptions"], video > track[kind="descriptions"], audio > track[kind="captions"]]]></elementSelector><mutation><![CDATA[                                                                                element = undefined;
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ]]></mutation></mutators><mutators xmlns:xsi="xsi" xsi:type="HTMLMutator" name="KBTRP" shortDesc="Add a (unrealistic but effective) keyboard trap" longDesc="Introduces a keyboard trap into a page by refocusing on a control once it has lost focus. Whilst this may represent the issue of being unable to tab correctly though a page in a slightly contrived manor it simulates a fault that may occur in a web application with complex scripts surrounding it that would present in the basic ability to use what may otherwise appear to be a static page." guidelines="//@guidelines.18"><elementSelector><![CDATA[body]]></elementSelector><mutation><![CDATA[                                                                        var jsdom = require("jsdom"); var { JSDOM } = jsdom;
+var field = new JSDOM("<!DOCTYPE html>").window.document.createElement("input");
+field.setAttribute("type", "text");
+field.setAttribute("onkeydown", "return false;");
+var label = new JSDOM("<!DOCTYPE html>").window.document.createElement("label");
+label.appendChild(new JSDOM("<!DOCTYPE html>").window.document.createTextNode("Field"));
+label.appendChild(field);
+var div = new JSDOM("<!DOCTYPE html>").window.document.createElement("div");
+div.setAttribute("role", "complementary");
+div.appendChild(label);
+element.appendChild(div);
+    
+    
+    
+    
+    
+    
+    
+    
+    ]]></mutation></mutators><guidelines xmlns:xsi="xsi" xsi:type="Guideline" name="WCAG 2.0 - 1.3.1" link="https://www.w3.org/TR/WCAG20/#content-structure-separation"/><guidelines xmlns:xsi="xsi" xsi:type="Guideline" name="WCAG 2.0 - 1.1.1" link="https://www.w3.org/TR/WCAG20/#text-equiv"/><guidelines xmlns:xsi="xsi" xsi:type="Guideline" name="WCAG 2.0 - 2.4.4" link="https://www.w3.org/TR/WCAG20/#navigation-mechanisms"/><guidelines xmlns:xsi="xsi" xsi:type="Guideline" name="WCAG 2.0 - 1.3.2" link="https://www.w3.org/TR/WCAG20/#content-structure-separation"/><guidelines xmlns:xsi="xsi" xsi:type="Guideline" name="WCAG 2.0 - 2.2.2" link="https://www.w3.org/TR/WCAG20/#time-limits"/><guidelines xmlns:xsi="xsi" xsi:type="Guideline" name="WCAG 2.0 - 4.1.1" link="https://www.w3.org/TR/WCAG20/#ensure-compat"/><guidelines xmlns:xsi="xsi" xsi:type="Guideline" name="WCAG 2.0 - 1.4.8" link="https://www.w3.org/TR/WCAG20/#visual-audio-contrast"/><guidelines xmlns:xsi="xsi" xsi:type="Guideline" name="WCAG 2.0 - 2.4.2" link="https://www.w3.org/TR/WCAG20/#navigation-mechanisms"/><guidelines xmlns:xsi="xsi" xsi:type="Guideline" name="WCAG 2.0 - 3.2.2" link="https://www.w3.org/TR/WCAG20/#consistent-behavior"/><guidelines xmlns:xsi="xsi" xsi:type="Guideline" name="WCAG 2.0 - 1.2.8" link="https://www.w3.org/TR/WCAG20/#media-equiv"/><guidelines xmlns:xsi="xsi" xsi:type="Guideline" name="WCAG 2.0 - 3.1.1" link="https://www.w3.org/TR/WCAG20/#meaning"/><guidelines xmlns:xsi="xsi" xsi:type="Guideline" name="WCAG 2.0 - 2.4.1" link="https://www.w3.org/TR/WCAG20/#navigation-mechanisms"/><guidelines xmlns:xsi="xsi" xsi:type="Guideline" name="WCAG 2.0 - 4.1.2" link="https://www.w3.org/TR/WCAG20/#ensure-compat"/><guidelines xmlns:xsi="xsi" xsi:type="Guideline" name="WCAG 2.0 - 1.2.2" link="https://www.w3.org/TR/WCAG20/#media-equiv"/><guidelines xmlns:xsi="xsi" xsi:type="Guideline" name="WCAG 2.0 - 1.2.1" link="https://www.w3.org/TR/WCAG20/#media-equiv"/><guidelines xmlns:xsi="xsi" xsi:type="Guideline" name="WCAG 2.0 - 1.2.3" link="https://www.w3.org/TR/WCAG20/#media-equiv"/><guidelines xmlns:xsi="xsi" xsi:type="Guideline" name="WCAG 2.0 - 1.2.5" link="https://www.w3.org/TR/WCAG20/#media-equiv"/><guidelines xmlns:xsi="xsi" xsi:type="Guideline" name="WCAG 2.0 - 1.2.7" link="https://www.w3.org/TR/WCAG20/#media-equiv"/><guidelines xmlns:xsi="xsi" xsi:type="Guideline" name="WCAG 2.0 - 2.1.2" link="https://www.w3.org/TR/WCAG20/#keyboard-operation"/></MutatorSet>

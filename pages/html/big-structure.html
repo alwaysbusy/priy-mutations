@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Big Page</title>
+    <style type="text/css">
+        .sr {
+            display: none;
+        }
+
+        @media speech {
+            .sr {
+                display: block;
+            }
+        }
+
+        @media screen {
+            :root .skiplink {
+                display: block
+            }
+
+            .skiplink a {
+                position: absolute;
+                left: -1000em;
+            }
+        }
+
+        #content {
+            float: right;
+            height: 1px;
+            width: 1px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div role="contentinfo">
+        <h1 role="heading">Big Page</h1>
+    </div>
+    <nav role="navigation">
+        <p class="sr skiplink"><a href="#content">Skip to Content</a></p>
+        <ul>
+            <li>
+                <a href="#sec1">Section 1</a>
+                <ul>
+                    <li><a href="#sec1-1">Section 1.1</a></li>
+                    <li><a href="#sec1-2">Section 1.2</a></li>
+                    <li><a href="#sec1-3">Section 1.3</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#sec2">Section 2</a>
+                <ul>
+                    <li><a href="#sec2-1">Section 2.1</a></li>
+                    <li><a href="#sec2-2">Section 2.2</a></li>
+                    <li><a href="#sec2-3">Section 2.3</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#sec3">Section 3</a>
+                <ul>
+                    <li><a href="#sec3-1">Section 3.1</a></li>
+                    <li><a href="#sec3-2">Section 3.2</a></li>
+                    <li><a href="#sec3-3">Section 3.3</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <div role="main">
+        <span id="content">-</span>
+        <p>Some Introductory content</p>
+        <h2 id="sec1" role="heading">Section 1</h2>
+        <p>Page content</p>
+        <h3 id="sec1-1" role="heading">Section 1.1</h3>
+        <p>Page content</p>
+        <h4 role="heading">Section 1.1.1</h4>
+        <p>Page content</p>
+        <h4 role="heading">Section 1.1.2</h4>
+        <p>Page content</p>
+        <h4 role="heading">Section 1.1.3</h4>
+        <p>Page content</p>
+        <h3 id="sec1-2" role="heading">Section 1.2</h3>
+        <p>Page content</p>
+        <h4 role="heading">Section 1.2.1</h4>
+        <p>Page content</p>
+        <h4 role="heading">Section 1.2.2</h4>
+        <p>Page content</p>
+        <h4 role="heading">Section 1.2.3</h4>
+        <p>Page content</p>
+        <h3 id="sec1-3" role="heading">Section 1.3</h3>
+        <p>Page content</p>
+        <h4 role="heading">Section 1.3.1</h4>
+        <p>Page content</p>
+        <h4 role="heading">Section 1.3.2</h4>
+        <p>Page content</p>
+        <h4 role="heading">Section 1.3.3</h4>
+        <p>Page content</p>
+        <h2 id="sec2" role="heading">Section 2</h2>
+        <p>Page content</p>
+        <h3 id="sec2-1" role="heading">Section 2.1</h3>
+        <p>Page content</p>
+        <h4 role="heading">Section 2.1.1</h4>
+        <p>Page content</p>
+        <h4 role="heading">Section 2.1.2</h4>
+        <p>Page content</p>
+        <h4 role="heading">Section 2.1.3</h4>
+        <p>Page content</p>
+        <h3 id="sec2-2" role="heading">Section 2.2</h3>
+        <p>Page content</p>
+        <h4 role="heading">Section 2.2.1</h4>
+        <p>Page content</p>
+        <h4 role="heading">Section 2.2.2</h4>
+        <p>Page content</p>
+        <h4 role="heading">Section 2.2.3</h4>
+        <p>Page content</p>
+        <h3 id="sec2-3" role="heading">Section 2.3</h3>
+        <p>Page content</p>
+        <h4 role="heading">Section 2.3.1</h4>
+        <p>Page content</p>
+        <h4 role="heading">Section 2.3.2</h4>
+        <p>Page content</p>
+        <h4 role="heading">Section 2.3.3</h4>
+        <p>Page content</p>
+        <h2 id="sec3" role="heading">Section 3</h2>
+        <p>Page content</p>
+        <h3 id="sec3-1" role="heading">Section 3.1</h3>
+        <p>Page content</p>
+        <h4 role="heading">Section 3.1.1</h4>
+        <p>Page content</p>
+        <h4 role="heading">Section 3.1.2</h4>
+        <p>Page content</p>
+        <h4 role="heading">Section 3.1.3</h4>
+        <p>Page content</p>
+        <h3 id="sec3-2" role="heading">Section 3.2</h3>
+        <p>Page content</p>
+        <h4 role="heading">Section 3.2.1</h4>
+        <p>Page content</p>
+        <h4 role="heading">Section 3.2.2</h4>
+        <p>Page content</p>
+        <h4 role="heading">Section 3.2.3</h4>
+        <p>Page content</p>
+        <h3 id="sec3-3" role="heading">Section 3.3</h3>
+        <p>Page content</p>
+        <h4 role="heading">Section 3.3.1</h4>
+        <p>Page content</p>
+        <h4 role="heading">Section 3.3.2</h4>
+        <p>Page content</p>
+        <h4 role="heading">Section 3.3.3</h4>
+        <p>Page content</p>
+    </div>
+</body>
+</html>

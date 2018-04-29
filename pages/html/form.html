@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Form Page</title>
+    </head>
+    <body>
+        <div role="main">
+            <h1>Form Page</h1>
+            <p>Some introductory text would go here</p>
+            <form>
+                <p><input type="button" name="button" value="Button" id="button" /></p>
+                <p><label for="checkbox" id="checkbox-label">Checkbox</label><input type="checkbox" id="checkbox" name="checkbox" title="checkbox" value="checkbox" aria-labelledby="checkbox-label"/></p>
+                <p><label for="color" id="color-label">Color</label><input type="color" name="color" id="color" aria-labelledby="color-label" value="#000000" title="color" /></p>
+                <p><label for="date" id="date-label">Date</label><input type="date" name="date" id="date" aria-labelledby="date-label" title="date" /></p>
+                <p><label for="datetime-local" id="datetime-local-label">Date and Time</label><input type="datetime-local" name="datetime-local" id="datetime-local" aria-labelledby="datetime-local-label" title="datetime-local" /></p>
+                <p><label for="email" id="email-label">Email</label><input type="email" name="email" id="email" aria-labelledby="email-label" title="email" /></p>
+                <p><label for="file" id="file-label">File</label><input type="file" name="file" id="file" aria-labelledby="file-label" title="file" /></p>
+                <input type="hidden" name="hidden" />
+                <p><label for="image" id="image-label">Image</label><input type="image" name="image" id="image" alt="An Image" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAKXSURBVGhD7dBRctw4DAXA3P/SXtaoMUUWCYmUOHZS6/6K8R6hQf58/eN+D/hp/4MD/lSMPs/3Jr540bCmIvgkXwqmieUDCtkH+EBLlrhzwEFjE0tHNBL3DyiUHrMuoZR4dEChd5ctp1QTTw8oVNd5f0U7sXZAP3k7+pO8GenT40lm+YB++HaezhhuOIaZOwcU/t7H3hejYJq4eUBhtIONwTSYJv6KAw72fsMB/viM7KOZ5QP869TxdkhjhZeJtQNOeLDCyyvaiQ0HqN5lS04v8egApR1sHNFI3D9AYyurW7LEnQNkn+EbLdnI8gGCT/KlimDkNOsIPs/3KoJOHnQE38VXK4LWngM0gumIxotRQqkiaM0eYNoRd8QtWUs2ohFMW7NfErRkHXFLNqIxohFMK1MfM+2IO+KWbERjRCOYVh4dUGi0ZC3ZiMaIRjCtjEYt04RSS9aSjWgklIJpeHpAoVcRdMQdcUIpmIYNBxSqL0b72BtMw54DPsrvCKbh94Adzj90pG+mYc8Bk7XasfzNdEQjmIZtB9RME0rTN2sH0zDeohtM53jz8v6zn0/yIJhWxrvUg2lC6cUomAbTbn6QtWTBtDL1rBCcUp3jzRXtYFpJF3kRTNc9eX68fTNtzR5QCL6Lr1YErW0HKE3cqTe98E3QOtviXUXQEQfTjjiYjmhUBJ2zLYXXFUFLtsjjjrgiGFk+oJC1ZCu8bMlaspGLAwo7WrKWbI43LVlLlrg+oLCpI64ITqm2ZB1xbuqAwr4RjbtsGdE4tfB5WxNKK7xMKF1Z+7DdV7RHNK5oT9j/P/eQb0y7c0Dha7vZvuLmAW++/Ixdtzw94OCHrPP+gT0H1Py0nN4m+w/4Zr8H/LTfA37aP37A19d/Pgft4jClC/sAAAAASUVORK5CYII=" aria-labelledby="image-label" title="image" /></p>
+                <p><label for="month" id="month-label">Month</label><input type="month" name="month" id="month" aria-labelledby="month-label" title="month" /></p>
+                <p><label for="number" id="number-label">Number</label><input type="number" name="number" id="number" aria-labelledby="number-label" title="number" /></p>
+                <p><label for="password" id="password-label">Password</label><input type="password" name="password" id="password" aria-labelledby="password-label" title="password" /></p>
+                <p><label for="radio" id="radio-label">Radio</label><input type="radio" name="radio" value="radio" id="radio" aria-labelledby="radio-label" title="radio" /></p>
+                <p><label for="range" id="range-label">Range</label><input type="range" name="range" id="range" aria-labelledby="range-label" min="0" max="10" step="1" value="3" title="range" /></p>
+                <p><input type="reset" name="reset" value="Reset" id="reset" title="reset" /></p>
+                <p><label for="search" id="search-label">Search</label><input type="search" name="search" id="search" aria-labelledby="search-label" title="search" /></p>
+                <p><input type="submit" name="submit" id="submit" value="Submit" title="submit" /></p>
+                <p><label for="tel" id="tel-label">Tel</label><input type="tel" name="tel" id="tel" aria-labelledby="tel-label" title="tel" /></p>
+                <p><label for="text" id="text-label">Text</label><input type="text" name="text" id="text" aria-labelledby="text-label" title="text" /></p>
+                <p><label for="time" id="time-label">Time</label><input type="time" name="time" id="time" aria-labelledby="time-label" title="time" /></p>
+                <p><label for="url" id="url-label">Url</label><input type="url" name="url" id="url" aria-labelledby="url-label" title="url" /></p>
+                <p><label for="week" id="week-label">Week</label><input type="week" name="week" id="week" aria-labelledby="week-label" title="week" /></p>
+                <hr />
+                <p><button type="button">Button</button></p>
+                <p><button type="submit">Submit</button></p>
+                <hr />
+                <p><label for="selectsingle" id="selectsingle-label">Select single</label><select name="selectsingle" id="selectsingle" aria-labelledby="selectsingle-label"><optgroup label="Options"><option value="1" selected>Option 1</option><option value="2">Option 2</option></optgroup></select></p>
+                <p><label for="selectmulti" id="selectmulti-label">Select single</label><select name="selectmulti" id="selectmulti" multiple aria-labelledby="selectmulti-label"><optgroup label="Options"><option value="1" selected>Option 1</option><option value="2">Option 2</option></optgroup></select></p>
+                <hr />
+                <p><label for="textarea" id="textarea-label">Textarea</label><textarea name="textarea" id="textarea" aria-labelledby="textarea-label"></textarea></p>
+                <hr />
+                <p><input type="text" title="Type search term here"/> <input type="submit" value="Search"/></p>
+                <fieldset>
+                    <legend>US Phone number</legend>
+                    <input id="area" name="area" title="Area Code" type="text" size="3" />
+                    <input id="exchange" name="exchange" title="First three digits" type="text" size="3" />
+                    <input id="local" name="local" title="Last four digits" type="text" size="4" />
+                </fieldset> 
+            </form>
+        </div>
+    </body>
+</html>

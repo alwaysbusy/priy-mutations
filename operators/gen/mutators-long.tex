@@ -1,0 +1,48 @@
+\textbf{ELATR} - Removes the \texttt{alt} attribute from \texttt{img}, \texttt{applet}, \texttt{area} and \texttt{input} (of type image) tags. The attribute is important as screen reader software uses it to either describe the content that is otherwise not visible to the user, or ignore it if the alt text is blank due to the decorative nature of the element. Removing it will cause screen reader software to announce the nondescript presence of the element, breaking the reading flow for the user.
+
+\textbf{HTROT} - Replaces heading level with the level greater than itself (or \texttt{h6} if originally \texttt{h1}). Incorrect heading order can confuse screen reading and other accessibility software which use headings to create page navigation. Whilst some out of order headings create in-navigable pages, others do not, so careful analysis is needed of mutants generated.
+
+\textbf{STLRM} - Removes the first \texttt{a} element on the page if it links to an element within the same page. Skip links are used to allow accessibility software to proceed past potentially length navigation options in order to access the main content of the page. There is no set standard for the what a skip link should look like or how it should be formed, but it is accepted practice that it should be the first link on the page. In cases where skip links are not provided there should be no navigation or boilerplate content at the start of the page.
+
+\textbf{THRPL} - Replaces all \texttt{th} (table header) elements within a \texttt{table} with standard \texttt{td} (table cell) fields, removing the semantic meaning of it being a header. Tables can also gain meaning though the use of aria labelling or the use of the \texttt{thead} element to denote a collection of table rows which comprise the header.
+
+\textbf{TCPRM} - Removes \texttt{caption} elements from any \texttt{table} element. The caption is used to provide a visible description of the content, along with any figure references.
+
+\textbf{TCPSM} - Sets the \texttt{caption} element of any \texttt{table} to have the same content as the tables \texttt{summary} attribute. This duplicates data being displayed to the user causing an accessibility issue as the information will be presented twice to the user, who is potentially unable to skip the repeated occurrence.
+
+\textbf{SCPWG} - Replaces the \texttt{scope} attribute of a \texttt{th} element with a value outside of the valid enumeration. This creates technically invalid HTML but this may not be spotted by a developer unless HTML validation forms a routine part of their workflow, since it has no impact on visual display or navigation. A single character spelling mistake, as this operator simulates by replacing the letter o (which occurs in all valid values) with the letter p, would be sufficient to create an accessibility issue.
+
+\textbf{SCPRM} - Removes the \texttt{scope} attribute from a single \texttt{th} element. Where other table headings have specified a scope the lack of the attribute from a single header would create ambiguity as to what it is the heading for. Removing the attribute from a single column table may still pose a concern since, whilst uncommon, \texttt{th} elements can be used in table rows to provide either a row heading or an inline subdivision of the table.
+
+\textbf{LBLRM} - Removes \texttt{label} elements which are used to identify a form field. The label is required to ensure the purpose of a form field is visible to the user. Whilst other methods of displaying the field name, such as using \texttt{placeholder} text may be used, the label is the standardised method that pages are expected to implement.
+
+\textbf{LBLRF} - Removes the \texttt{for} attribute from a \texttt{label}, which is used to identify the form field it describes. Even in cases where the form field is contained by the label, it is compulsory to provide the \texttt{for} attribute even though most accessibility software and web browsers are able to make a "best guess" as to what field is being described without it.
+
+\textbf{ITLRM} - Removes \texttt{title} attribute from any \texttt{input} fields. The title attribute is used to provide information on what data is expected within a form field and may be read by screen reading software or displayed on screen so should provide a meaningful description. In some circumstances, such as when a well-formed label is provided, the title is not needed.
+
+\textbf{AIMTR} - Removes any text from links where there is a decorative image (\texttt{img} with an empty string for \texttt{alt} attribute). Links must contain some textual representation of their destination. This may be provided by either alternative text for an image or text itself. Removing all content other than decorative images from the link will prevent any meaningful description being given to the user, especially if there is either no URL or it contains a "cryptic" path.
+
+\textbf{OBBDR} - Removes the body content from an \texttt{object} element. In cases where the object cannot be rendered or displayed, maybe due to a missing or unsupported browser plugin, the body content of it is instead displayed which may provide either a HTML alternative or instructions on how to access the content.
+
+\textbf{LDCUR} - Modifies the \texttt{longdesc} attribute to not be a URI. This attribute would normally be used to link to either another element on the page or an external page with a more detailed description of the element. If this information is not correct then a detailed overview of visual content may not be accessible to the user.
+
+\textbf{RTLND} - Removes the \texttt{dir} attribute from any fields, losing information about the direction of text. In cases where a page is written in a left-to-right (LTR) language with a small piece of right-to-left (RTL) text (or vice versa), removing the \texttt{dir} attribute prevents this information from being detected and so may result in text being read and interpreted backwards by accessibility software.
+
+\textbf{BLINK} - Applies the \texttt{blink} text decoration to text elements, with no method of disabling the animation. Blinking text prevents it from being read, so the use of the animation on textual content or without a means of turning the animation off.
+
+\textbf{DUPID} - Wraps an element with a \texttt{id} attribute in a \texttt{div} element with the same ID. The use of the same ID for multiple elements prevents navigation around the page from working correctly since elements cannot be uniquely targeted.
+
+\textbf{TJUST} - Applies a justified text alignment to text elements. This fault makes text harder to read visually as spacing on screen becomes non-uniform. This fault will only present and be a concern where the text the alignment is applied to runs over multiple lines, otherwise the text will appear to be left justified as would be default.
+
+\textbf{TTLEM} - Sets the \texttt{title} element of the page to be empty. A page title is required to provide a basic identifier for the page. It is displayed or narrated by most web software.
+
+\textbf{FMSUB} - Replaces a button of type \texttt{submit} with one of type \texttt{button}. This would cause a button with a form which cannot be submitted using on-screen buttons in the case of there only being a single submit button within the form. In cases where there are other submit buttons within the form this will not create an accessibility issue. A user will also be able to submit the form using their keyboard in a conventional browser, but may render the form unusable in other browsers.
+
+\textbf{LANRM} - Removes the \texttt{lang} attribute from \texttt{html} elements. If no language is specified for the page then it may be interpreted incorrectly, with the browser potentially choosing the wrong reading order or narrate with incorrect emphasis due to differences in language rules.
+
+\textbf{IFTRM} - Removes the \texttt{title} attribute from \texttt{iframe} elements. The title is used to identify what content is expected to be within an iframe, providing a brief summary before navigating into the framed page. Without the title navigation information may be based solely on the URL or navigate into the frame without providing the user with any additional information.
+
+\textbf{MDTDR} - Removes \texttt{track} elements that provide either captions or descriptions for media elements. This prevents deaf and/or blind users from being able to access alternative versions of any audio/video content.
+
+\textbf{KBTRP} - Introduces a keyboard trap into a page by refocusing on a control once it has lost focus. Whilst this may represent the issue of being unable to tab correctly though a page in a slightly contrived manor it simulates a fault that may occur in a web application with complex scripts surrounding it that would present in the basic ability to use what may otherwise appear to be a static page.
+

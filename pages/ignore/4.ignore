@@ -1,0 +1,6 @@
+##achecker
+Data table with more than one row/column of headers does not use <code>id</code> and <code>headers</code> attributes to identify cells.
+##achecker-wae
+Data table with more than one row/column of headers does not use <code>id</code> and <code>headers</code> attributes to identify cells.
+##vnu
+Element â€œcaptionâ€ not allowed as child of element â€œtableâ€ in this context. (Suppressing further errors from this subtree.)
